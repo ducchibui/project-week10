@@ -10,26 +10,29 @@
 <title>User registration page</title>
 </head>
 <body>
-	<form method="post" action="registrationdb.jsp">
+	<form method="post" action="userregistrationdb.jsp">
 		User name: <input type="text" name="username">
 		<p></p>
 		Password: <input type="password" name="password">
 		<p></p>
-		Cell phone: <input type="text" name="cellphone">
+		Phone: <input type="text" name="phone">
+		<p></p>
+		email: <input type="text" name="email">
 		<p></p>
 		Address: <input type="text" name="address">
 		<p></p>
-		<input type="submit" value="Register">
+		name: <input type="text" name="name">
+		<p></p>
+		role: <select name="role">
+			<option value="user">User</option>
+			<option value="Admin">Admin</option>
+		</select> <p></p><input type="submit" value="Register">
 	</form>
 
 	<%--Redirect to product registration page if register successfully else display error message --%>
 	<font color="red"><c:if test="${not empty param.errMsg}">
-            <c:out value="${param.errMsg}" />
-            <a href="index.jsp">Go Back</a>
-        </c:if></font>
-        <font color="green"><c:if test="${not empty param.susMsg}">
-            <c:out value="${param.susMsg}" />
-            <a href="index.jsp">Go Back</a>
-        </c:if></font>
+			<c:out value="${param.errMsg}" />
+			<a href="userregistration.jsp">Go Back</a>
+		</c:if></font>
 </body>
 </html>

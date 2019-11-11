@@ -7,6 +7,7 @@
 <title>Product registration page</title>
 </head>
 <body>
+<h1>Product registration</h1>
 <form method="post" action="productregistrationdb.jsp">
  
 </form>
