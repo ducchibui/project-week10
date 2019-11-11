@@ -23,9 +23,13 @@
 	</form>
 
 	<%--Redirect to product registration page if register successfully else display error message --%>
-	<c:if test="">
-		<c:redirect>
-		</c:redirect>
-	</c:if>
+	<font color="red"><c:if test="${not empty param.errMsg}">
+            <c:out value="${param.errMsg}" />
+            <a href="index.jsp">Go Back</a>
+        </c:if></font>
+        <font color="green"><c:if test="${not empty param.susMsg}">
+            <c:out value="${param.susMsg}" />
+            <a href="index.jsp">Go Back</a>
+        </c:if></font>
 </body>
 </html>
