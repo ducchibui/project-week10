@@ -27,7 +27,7 @@ CREATE TABLE `product_registration` (
   `username` varchar(45) NOT NULL,
   `product_id` int(11) NOT NULL,
   `purchase_date` varchar(45) NOT NULL,
-  `quantity` varchar(45) NOT NULL,
+  `serial_no` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `product_idx` (`product_id`),
   KEY `user_idx` (`username`),
@@ -58,7 +58,6 @@ CREATE TABLE `products` (
   `color` varchar(10) NOT NULL,
   `manufacturer` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
-  `serial_no` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -109,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-11 15:03:55
+-- Dump completed on 2019-11-11 15:54:02
