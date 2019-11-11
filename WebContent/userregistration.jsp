@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>User registration page</title>
 </head>
 <body>
 	<form method="post" action="registrationdb.jsp">
@@ -22,7 +22,7 @@
 		<input type="submit" value="Register">
 	</form>
 
-	<%--Redirect to registration page if register successfully else display error message --%>
+	<%--Redirect to product registration page if register successfully else display error message --%>
 	<c:if test="">
 		<c:redirect>
 		</c:redirect>
