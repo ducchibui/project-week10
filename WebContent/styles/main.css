@@ -1,0 +1,130 @@
+div {
+	width: 390px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 2px solid blue;
+}
+
+#list_product {
+	width: 600px;
+}
+
+#list_product table {
+	border: 1px solid gray;
+	border-collapse: collapse;
+}
+
+
+
+#list_product table td {
+	padding-left: 5px;
+	padding-right:5px;
+	border: 1px solid gray;
+}
+
+#list_product table thead td {
+	font-weight: bold;
+	background-color: lightblue;
+	text-align: center
+}
+
+#list_product table tbody td:nth-child(6), td:nth-child(5) {
+	text-align: right;
+}
+
+#list_product table tbody td:first-child {
+	text-align: center;
+}
+
+#list_product table tbody tr:nth-child(even) {
+	background-color: lightgreen;
+}
+
+
+input {
+	margin-top: 5px;
+}
+
+input[type=text]{
+	width: 250px;
+}
+
+input[type=radio]:last-child {
+	margin-left: 21px;
+}
+
+input[type=submit] {
+	width: 100px;
+	height: 50px;
+}
+
+select {
+	width: 200px;
+}
+
+div form table {
+	margin: 10px 10px;
+}
+
+div form  table tr td {
+	background-color: #CCCCFF;
+	padding: 5px 5px;
+}
+
+div form table tr:first-child {
+	 text-align: center;
+}
+
+div form table tr:first-child h1 {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+div form table tr:last-child {
+	text-align: center;
+}
+
+div form table span {
+	color: red;
+}
+
+#data_display {
+	background: #33FFCC;
+}
+
+#data_display h1 {
+	font-size: 1.9em;
+	color: #FF9967;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	
+}
+
+#data_display table {
+	margin: 10px 10px;
+}
+
+#data_display table td {
+	padding: 5px;
+}
+
+#data_display table tr:not(:first-child) td:first-child {
+	font-weight: bold;
+	width: 220px;
+}
+
+#error {
+	background-color: #feb32f;
+	padding: 15px;
+	color: #b0010e;
+}
+
+#error h1{
+	width: 100%;
+	border-bottom: 2px solid gray;
+}
+
+
+
+
+
