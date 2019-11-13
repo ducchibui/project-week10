@@ -34,12 +34,13 @@
 		<sql:param value="${param.email}" />
 		<sql:param value="${param.address}" />
 		<sql:param value="${param.name}" />
-		<sql:param value="${param.role}" />
+		<sql:param value="user" />
 	</sql:update>
 	<c:if test="${result>=1}">
 		<font size="5" color='green'> Congratulations ! User registered
 			successfully.</font>
 		<c:redirect url="product_list.jsp">
+			<c:param name="userid" value ="${param.username} }"/>
 			<c:param name="susMsg"
 				value="Congratulations ! Data inserted
             successfully." />

@@ -22,8 +22,8 @@
 		<div class="row">
 			<fieldset>
 				<legend>Login</legend>
-				<form method="post">
-					<table collpadding="2" cellspacing="2">
+				<form method="post" action="logindb.jsp">
+					<table class="table table-bordered">
 						<tr>
 							<td>User name:</td>
 							<td><input type="text" name="username"></td>
@@ -33,21 +33,22 @@
 							<td><input type="password" name="password"></td>
 						</tr>
 						<tr>
-							<td><input type="submit" value="Login"></td>
+							<td colspan="2"><input type="submit" value="Login"></td>
 						</tr>
 					</table>
 				</form>
 				<%--Go to product register page if login succeed--%>
-				<%--Or on home page and display error message if login fail --%>
+
 			</fieldset>
 		</div>
+
 	</div>
 	<div class ="container">
 	<div class="row">
 		<fieldset>
 			<legend>Create new account</legend>
-			<form method="post" action="userregistrationdb.jsp">
-				<table collpadding="2" cellspacing="2">
+			<form method="post" action="register_userdb.jsp">
+				<table class="table table-bordered">
 					<tr>
 						<td>User name:</td>
 						<td><input type="text" name="username"></td>
@@ -72,9 +73,8 @@
 						<td><label>Name: </label></td>
 						<td><input type="text" name="name"></td>
 					</tr>
-					<input type="hidden" name="role" value="user">
 					<tr>
-						<td><input type="submit" value="Register"></td>
+						<td colspan="2"><input type="submit" value="Register"></td>
 					</tr>
 				</table>
 			</form>
