@@ -15,7 +15,7 @@
 		test="${ empty param.username or empty param.password
 	or empty param.phone or empty param.email or empty param.address
 	or param.name or param.role}">
-		<c:redirect url="userregistration.jsp">
+		<c:redirect url="home.jsp">
 			<c:param name="errMsg" value="Please Enter all field to register" />
 		</c:redirect>
 
@@ -39,7 +39,7 @@
 	<c:if test="${result>=1}">
 		<font size="5" color='green'> Congratulations ! User registered
 			successfully.</font>
-		<c:redirect url="productregistration.jsp">
+		<c:redirect url="product_list.jsp">
 			<c:param name="susMsg"
 				value="Congratulations ! Data inserted
             successfully." />

@@ -12,7 +12,7 @@
 <body>
 	<sql:setDataSource var="dbCon" driver="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/product_management?serverTimezone=EST5EDT"
-		user="root" password="root"></sql:setDataSource>
+		user="root" password="12345"></sql:setDataSource>
 		<div id="list_product" style="float:none">
 			<h1>Product List</h1>
 			<h5><a href="/add_product.jsp">Add Product</a></h5>

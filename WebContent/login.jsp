@@ -10,6 +10,7 @@
 <title>Login Page</title>
 </head>
 <body>
+<h1>Welcome to ABC company</h1>
 	<form method="post">
 		user name: <input type="text" name="username">
 		<p></p>
@@ -17,7 +18,7 @@
 		<p></p>
 		<input type="submit" value="Login">
 	</form>
-	
+	<p></p>
 	<%--Redirect to the user registration page or display error message--%>
 	
 	<font color="red"><c:if test="${not empty param.errMsg}">
