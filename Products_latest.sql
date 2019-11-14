@@ -103,14 +103,15 @@ DROP TABLE IF EXISTS `ProtectionClaims`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ProtectionClaims` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Type` varchar(45) DEFAULT NULL,
-  `Date` datetime DEFAULT NULL,
-  `Description` varchar(45) DEFAULT NULL,
-  `RegistrationId` int(11) DEFAULT NULL,
+  `Type` varchar(45) NOT NULL,
+  `Date` datetime NOT NULL,
+  `Description` varchar(45) NOT NULL,
+  `RegistrationId` int(11) NOT NULL,
+  `status` varchar(45) NOT NULL DEFAULT 'WAITING APPROVAL',
   PRIMARY KEY (`id`),
   KEY `Claim_Registration_idx` (`RegistrationId`),
   CONSTRAINT `Claim_Registration` FOREIGN KEY (`RegistrationId`) REFERENCES `protectionregistrations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,6 +120,7 @@ CREATE TABLE `ProtectionClaims` (
 
 LOCK TABLES `ProtectionClaims` WRITE;
 /*!40000 ALTER TABLE `ProtectionClaims` DISABLE KEYS */;
+INSERT INTO `ProtectionClaims` (`id`, `Type`, `Date`, `Description`, `RegistrationId`, `status`) VALUES (1,'Repair','2019-11-14 00:00:00','Test',3,'WAITING APPROVAL'),(2,'Repair','2019-11-15 00:00:00','lk;k',3,'WAITING APPROVAL'),(3,'Repair','2019-11-21 00:00:00','lkjlkjkj',3,'WAITING APPROVAL');
 /*!40000 ALTER TABLE `ProtectionClaims` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +142,7 @@ CREATE TABLE `ProtectionRegistrations` (
   KEY `user_idx` (`username`),
   CONSTRAINT `product` FOREIGN KEY (`ProductId`) REFERENCES `products` (`id`),
   CONSTRAINT `user` FOREIGN KEY (`username`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +151,7 @@ CREATE TABLE `ProtectionRegistrations` (
 
 LOCK TABLES `ProtectionRegistrations` WRITE;
 /*!40000 ALTER TABLE `ProtectionRegistrations` DISABLE KEYS */;
-INSERT INTO `ProtectionRegistrations` (`id`, `username`, `ProductId`, `PurchaseDate`, `SerialNo`) VALUES (3,'kientran',4,'2019-09-12 00:00:00','123123');
+INSERT INTO `ProtectionRegistrations` (`id`, `username`, `ProductId`, `PurchaseDate`, `SerialNo`) VALUES (3,'kientran',4,'2019-09-12 00:00:00','123123'),(5,'kientran',8,'2019-11-13 00:00:00','asdfasdf'),(6,'chibui',5,'2019-11-21 00:00:00','123-34-3234-343234234');
 /*!40000 ALTER TABLE `ProtectionRegistrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,4 +193,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-13 23:51:16
+-- Dump completed on 2019-11-14 16:01:56

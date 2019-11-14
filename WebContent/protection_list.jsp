@@ -92,12 +92,17 @@
 							<td><c:out value="${col.type}"></c:out></td>
 							<td><c:out value="${col.model}"></c:out></td>
 							<td><c:out value="${col.manufacturer}"></c:out></td>
-							<td><a href="claim_list.jsp?id=${col.id}" class="edit"
+							<td><a href="claim_list.jsp?registrationId=${col.id}" class="edit"
 								data-toggle="modal"><i class="material-icons"
 									data-toggle="tooltip" title="claim detail">&#xe3c7</i></a>
 							</td>
 						</tr>
 					</c:forEach>
+					<c:if test="${result.rowCount == 0}">
+						<tr>
+							<td colspan="8">No record found!</td>
+						</tr>
+					</c:if>
 				</tbody>
 			</table>
 		</div>

@@ -19,7 +19,7 @@
  
  
         <sql:update dataSource="${dbsource}" var="result">
-            INSERT INTO product_registration(username, product_id, purchase_date, serial_no) VALUES (?,?, ?, ?);
+            INSERT INTO ProtectionRegistrations(username, productid, purchasedate, serialno) VALUES (?,?, ?, ?);
             <sql:param value="${param.username}" />
             <sql:param value="${param.product}" />
             <sql:param value="${param.purchaseDate}" />

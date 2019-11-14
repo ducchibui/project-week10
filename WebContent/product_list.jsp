@@ -88,6 +88,11 @@
 							</td>
 						</tr>
 					</c:forEach>
+					<c:if test="${result.rowCount == 0}">
+						<tr>
+							<td colspan="6">No record found!</td>
+						</tr>
+					</c:if>
 				</tbody>
 			</table>
 		</div>
