@@ -39,7 +39,7 @@
 	<c:if test="${result>=1}">
 		<font size="5" color='green'> Congratulations ! User registered
 			successfully.</font>
-		<c:redirect url="product_list.jsp">
+		<c:redirect url="user_product_list.jsp">
 			<c:param name="userid" value ="${param.username} }"/>
 			<c:param name="susMsg"
 				value="Congratulations ! Data inserted

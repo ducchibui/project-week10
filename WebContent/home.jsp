@@ -22,7 +22,7 @@
 		<div class="row">
 			<fieldset>
 				<legend>Login</legend>
-				<form method="post" action="logindb.jsp">
+				<form method="post" action="login_db.jsp">
 					<table class="table table-bordered">
 						<tr>
 							<td>User name:</td>
@@ -41,7 +41,6 @@
 
 			</fieldset>
 		</div>
-
 	</div>
 	<div class ="container">
 	<div class="row">
