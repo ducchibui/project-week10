@@ -2,83 +2,163 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
 <title>Product List</title>
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+<%@ include file="layout/header.jsp"%>
+<%@ include file="common/datasource.jsp"%>
 </head>
 <body>
-	<header class="d-flex align-self-center"
-		style="background-color: cornsilk">
-		<div class="container">
-			<img src="images/sharesquare.png">
-		</div>
-	</header>
-	<nav class="navbar bg-dark navbar-dark navbar-expand-md mb-5">
-		<div class="container">
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#myToggleNav" aria-expanded="false"
-				aria-label="Toggle Navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="myToggleNav">
-				<div class="navbar-nav">
-					<a class="nav-item nav-link " href="all_user_list.jsp">List
-						Users</a> <a class="nav-item nav-link " href="product_list.jsp">List
-						Product</a> <a class="nav-item nav-link " href="claim_list.jsp">List
-						Claim</a> <a class="nav-item nav-link " href="logout.jsp">Log out</a>
-				</div>
-				<!--navbar nav-->
-			</div>
-			<!--collapse-->
-		</div>
-		<!--container-->
-	</nav>
-	<!--navbar--->
-	<sql:setDataSource var="dbCon" driver="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost/project_week10?serverTimezone=EST5EDT"
-		user="root" password="12345"></sql:setDataSource>
+
 	<div class="container">
-		<h1>Product List</h1>
-		<h5>
-			<a href="add_product.jsp">Add Product</a>
-		</h5>
-		<table class="table table-bordered">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">Product No</th>
-					<th scope="col">Product Name</th>
-					<th scope="col">Product Type</th>
-					<th scope="col">Manufacturer</th>
-					<th scope="col">Color</th>
-					<th colspan="2" scope="col">Action</th>
-				</tr>
-			</thead>
-			<tbody>
+		<%@ include file="layout/nav_bar.jsp"%>
 
-				<sql:query dataSource="${dbCon}" var="result">
-			select * from Products;
-		</sql:query>
-
-				<c:forEach var="col" items="${result.rows}">
-					<tr class="table-primary">
-						<td><c:out value="${col.id}"></c:out></td>
-						<td><c:out value="${col.name}"></c:out></td>
-						<td><c:out value="${col.type}"></c:out></td>
-						<td><c:out value="${col.manufacturer}"></c:out></td>
-						<td><c:out value="${col.color}"></c:out></td>
-						<td><a href="update_product?id=${col.ProductNo}">Update</a></td>
-						<td><a href="delete_product?id=${col.ProductNo}">Delete</a></td>
+		<div class="table-wrapper">
+			<div class="table-title">
+				<div class="row">
+					<div class="col-sm-3">
+						<h2>
+							Manage <b>Products</b>
+						</h2>
+					</div>
+					<div class="col-sm-6">
+						<form class="" action="product_list.jsp">
+							<input type="text" class="title-search btn form-control"
+								placeholder="Search" name="search_tearm" value="${param.search_tearm }">
+						</form>
+					</div>
+					<div class="col-sm-3">
+						<a href="add_product.jsp" class="btn btn-success"><i
+							class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
+					</div>
+				</div>
+			</div>
+			<c:choose>
+				<c:when test="${!empty param.search_tearm}">
+					<sql:query dataSource="${dbCon}" var="result">
+						select p.id, p.name, p.model, concat(t.name, '') AS type, concat(m.name, '') AS manufacturer from Products p, ProductTypes t, Manufacturers m
+						WHERE p.ManufacturerID = m.id
+						AND p.TypeID = t.id
+						AND (
+							p.name LIKE concat('%',?,'%')
+							OR p.model LIKE concat('%',?,'%')
+							OR m.name LIKE concat('%',?,'%')
+							OR t.name LIKE concat('%',?,'%'));
+						<sql:param value="${param.search_tearm}" />
+						<sql:param value="${param.search_tearm}" />
+						<sql:param value="${param.search_tearm}" />
+						<sql:param value="${param.search_tearm}" />
+					</sql:query>
+				</c:when>
+				<c:otherwise>
+					<sql:query dataSource="${dbCon}" var="result">
+						select p.id, p.name, p.model, concat(t.name, '') AS type, concat(m.name, '') AS manufacturer from Products p, ProductTypes t, Manufacturers m
+						WHERE p.ManufacturerID = m.id
+						AND p.TypeID = t.id;
+					</sql:query>
+				</c:otherwise>
+			</c:choose>
+			
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Model</th>
+						<th>Manufacturer</th>
+						<th>Actions</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-
-		</table>
+				</thead>
+				<tbody>
+					<c:forEach var="col" items="${result.rows}">
+						<tr>
+							<td><c:out value="${col.id}"></c:out></td>
+							<td><c:out value="${col.name}"></c:out></td>
+							<td><c:out value="${col.type}"></c:out></td>
+							<td><c:out value="${col.model}"></c:out></td>
+							<td><c:out value="${col.manufacturer}"></c:out></td>
+							<td><a href="add_product.jsp?id=${col.id}" class="edit"
+								data-toggle="modal"><i class="material-icons"
+									data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+								<a href="#" onclick="deteleSetup(${col.id})" data-toggle="modal" data-target="#deleteEmployeeModal"><i
+									class="material-icons" data-toggle="tooltip"  title="Delete">&#xE872;</i></a>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<script src="js/jquery.slim.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<c:if test="${!empty param.msg}">
+		<div id="msgModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Message</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>${param.msg}</p>
+						
+					</div>
+					<div class="modal-footer">
+						<c:choose>
+							<c:when test="${!empty param.buttonType}">
+								<input type="button" class="btn ${ param.buttonType}" data-dismiss="modal"
+							value="Close">
+							</c:when>
+							<c:otherwise>
+								<input type="button" class="btn btn-default" data-dismiss="modal"
+							value="Close">
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+		  $('#msgModal').modal('show');
+		});
+	</script>
+	</c:if>
+	
+	<!-- Delete Modal HTML -->
+	<div id="deleteEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="delete_product.jsp" method="POST">
+					<input id="delete_id" name="id"type="hidden" value=""/>
+					<div class="modal-header">
+						<h4 class="modal-title">Delete Employee</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning">
+							<small>This action cannot be undone.</small>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal"
+							value="Cancel"> 
+							<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		function deteleSetup(id){
+			$('#delete_id').val(id);
+		}
+	</script>
 </body>
 </html>
