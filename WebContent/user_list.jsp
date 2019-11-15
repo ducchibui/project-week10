@@ -43,7 +43,9 @@
 							OR u.phone LIKE concat('%',?,'%')
 							OR u.email LIKE concat('%',?,'%')
 							OR u.address LIKE concat('%',?,'%')
-							OR u.name LIKE concat('%',?,'%');
+							OR u.name LIKE concat('%',?,'%')
+							OR u.role LIKE concat('%',?,'%');
+						<sql:param value="${param.search_tearm}" />
 						<sql:param value="${param.search_tearm}" />
 						<sql:param value="${param.search_tearm}" />
 						<sql:param value="${param.search_tearm}" />
@@ -66,6 +68,7 @@
 						<th>Phone</th>
 						<th>Email</th>
 						<th>Address</th>
+						<th>Role</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -76,6 +79,7 @@
 							<td><c:out value="${col.phone}"></c:out></td>
 							<td><c:out value="${col.email}"></c:out></td>
 							<td><c:out value="${col.address}"></c:out></td>
+							<td><c:out value="${col.role}"></c:out></td>
 						</tr>
 					</c:forEach>
 					<c:if test="${result.rowCount == 0}">

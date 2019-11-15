@@ -35,11 +35,22 @@
 			<c:choose>
 				<c:when test="${!empty param.search_tearm}">
 					<sql:query dataSource="${dbCon}" var="result">
-						select * from protectionregistrations as p
-						WHERE 
-							p.username LIKE concat('%',?,'%')
-							OR p.ProductId LIKE concat('%',?,'%')
-							OR p.SerialNo LIKE concat('%',?,'%');
+						select pr.username, pr.SerialNo, pr.id, pr.PurchaseDate, p.name, p.model, concat(t.name, '') AS type, concat(m.name, '') AS manufacturer from Products p, ProductTypes t, Manufacturers m, protectionregistrations pr
+						WHERE pr.ProductId = p.id
+						AND p.ManufacturerID = m.id
+						AND p.TypeID = t.id
+						AND (
+							pr.username LIKE concat('%',?,'%')
+							OR pr.SerialNo LIKE concat('%',?,'%')
+							OR pr.PurchaseDate LIKE concat('%',?,'%')
+							OR p.name LIKE concat('%',?,'%')
+							OR p.model LIKE concat('%',?,'%')
+							OR m.name LIKE concat('%',?,'%')
+							OR t.name LIKE concat('%',?,'%'));
+						<sql:param value="${param.search_tearm}" />
+						<sql:param value="${param.search_tearm}" />
+						<sql:param value="${param.search_tearm}" />
+						<sql:param value="${param.search_tearm}" />
 						<sql:param value="${param.search_tearm}" />
 						<sql:param value="${param.search_tearm}" />
 						<sql:param value="${param.search_tearm}" />
@@ -47,7 +58,11 @@
 				</c:when>
 				<c:otherwise>
 					<sql:query dataSource="${dbCon}" var="result">
-						select * FROM protectionregistrations;
+						select pr.username, pr.SerialNo, pr.id, pr.PurchaseDate, p.name, p.model, concat(t.name, '') AS type, concat(m.name, '') AS manufacturer from Products p, ProductTypes t, Manufacturers m, 
+						protectionregistrations pr
+						WHERE pr.ProductId = p.id
+						AND p.ManufacturerID = m.id
+						AND p.TypeID = t.id;
 					</sql:query>
 				</c:otherwise>
 			</c:choose>
@@ -55,12 +70,14 @@
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>ID</th>
-						<th>Name</th>
-						<th>Type</th>
+						<th>Id</th>
+						<th>User name</th>
+						<th>Product name</th>
+						<th>Serial number</th>
+						<th>Purchase Date</th>
 						<th>Model</th>
-						<th>Manufacturer</th>
-						<th>Actions</th>
+						<th>Type</th>
+						<th>Manufacture</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -68,20 +85,17 @@
 						<tr>
 							<td><c:out value="${col.id}"></c:out></td>
 							<td><c:out value="${col.username}"></c:out></td>
-							<td><c:out value="${col.ProductId}"></c:out></td>
-							<td><c:out value="${col.PurchaseDate}"></c:out></td>
+							<td><c:out value="${col.name}"></c:out></td>
 							<td><c:out value="${col.SerialNo}"></c:out></td>
-							<td><a href="add_product.jsp?id=${col.id}" class="edit"
-								data-toggle="modal"><i class="material-icons"
-									data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-								<a href="#" onclick="deteleSetup(${col.id})" data-toggle="modal" data-target="#deleteEmployeeModal"><i
-									class="material-icons" data-toggle="tooltip"  title="Delete">&#xE872;</i></a>
-							</td>
+							<td><c:out value="${col.PurchaseDate}"></c:out></td>
+							<td><c:out value="${col.model}"></c:out></td>
+							<td><c:out value="${col.type}"></c:out></td>
+							<td><c:out value="${col.manufacturer}"></c:out></td>
 						</tr>
 					</c:forEach>
 					<c:if test="${result.rowCount == 0}">
 						<tr>
-							<td colspan="6">No record found!</td>
+							<td colspan="7">No record found!</td>
 						</tr>
 					</c:if>
 				</tbody>
