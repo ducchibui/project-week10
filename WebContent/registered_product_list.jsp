@@ -19,9 +19,9 @@
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
-					<div class="col-sm-3">
+					<div class="col-sm-6">
 						<h2>
-							Manage <b>Products</b>
+							List of <b>registered products</b>
 						</h2>
 					</div>
 					<div class="col-sm-6">

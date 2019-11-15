@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="common/authorization.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="common/datasource.jsp"%>
 
 <!DOCTYPE html>
@@ -44,7 +45,19 @@
 		
 	</sql:query>
 	
-	<!-- TODO: Verify expired date -->
+	<!-- Verify the purchase date is within 5 years from now.
+	If it is not the case then inform user about expired registered product
+	and do not allow to add a new claim on this product -->
+	<fmt:parseDate type="both" value= "${registeredProduct.rows[0].purchaseDate}" var="purchaseDate" pattern="yyyy-MM-dd HH:mm:ss" />
+	<c:set target="${purchaseDate}" property="time" value="${purchaseDate.time + 86400000 * 365*5}" />
+	<jsp:useBean id="now" class="java.util.Date" />
+	<c:if test="${purchaseDate < now}">
+		<c:redirect url="claim_list.jsp" >
+           	<c:param name="registrationId" value="${param.registrationId}" />
+			<c:param name="msg" value="Protection is expired for this registered product. You can not claim protection any more" />
+            <c:param name="buttonType" value="btn-danger" />
+		</c:redirect>
+	</c:if>
 	
 	<c:set var="errType" value="" />
 	<c:set var="errClaimDate" value="" />

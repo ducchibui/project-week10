@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Product List</title>
+<title>User List</title>
 <%@ include file="layout/header.jsp"%>
 <%@ include file="common/datasource.jsp"%>
 </head>
@@ -19,9 +19,9 @@
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
-					<div class="col-sm-3">
+					<div class="col-sm-6">
 						<h2>
-							Manage <b>Users</b>
+							<b>List of Users</b>
 						</h2>
 					</div>
 					<div class="col-sm-6">

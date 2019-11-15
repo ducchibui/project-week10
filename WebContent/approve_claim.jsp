@@ -16,13 +16,18 @@
 	</c:redirect>
 </c:if>
 
+<c:set var="return_url" value="user_claim_list.jsp"/>
+<c:if test="${!empty param.is_home}">
+	<c:set var="return_url" value="home.jsp"/>
+</c:if>
+
 <sql:query dataSource="${dbCon}" var="result">
 	SELECT * FROM protectionclaims WHERE id = ?
     <sql:param value="${param.claim_id}" />
 </sql:query>
 <c:choose>
 	<c:when test="${result.rowCount==0}">
-		<c:redirect url="user_claim_list.jsp">
+		<c:redirect url="${return_url}">
 			<c:param name="msg" value="The claim is not exist!" />
 			<c:param name="buttonType" value="btn-danger" />
 		</c:redirect>
@@ -37,13 +42,13 @@
 
 		<c:choose>
 			<c:when test="${e != null}">
-				<c:redirect url="user_claim_list.jsp">
+				<c:redirect url="${return_url}">
 					<c:param name="msg" value="Can't not approve this claim" />
 					<c:param name="buttonType" value="btn-success" />
 				</c:redirect>
 			</c:when>
 			<c:otherwise>
-				<c:redirect url="user_claim_list.jsp">
+				<c:redirect url="${return_url}">
 					<c:param name="msg" value="The claim is approved successfully!" />
 					<c:param name="buttonType" value="btn-success" />
 				</c:redirect>

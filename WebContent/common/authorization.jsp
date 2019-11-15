@@ -5,7 +5,7 @@
 	Map<String, String[]> resourcePermission = new HashMap<String, String[]>();
 
 	//Define the list of resource that user who has admin role can access
-	resourcePermission.put("admin", new String[] { "product_list", "add_product", "delete_product", "user_list","user_claim_list","approve_claim","registered_product_list" });
+	resourcePermission.put("admin", new String[] { "home","product_list", "add_product", "delete_product", "user_list","user_claim_list","approve_claim","registered_product_list" });
 
 	//Define the list of resource that user who has user role can access
 	resourcePermission.put("user", new String[] { "protection_registration", "protection_list",
@@ -28,13 +28,14 @@
 		Boolean isPermissionGrant = false;
 
 		for (int i = 0; i < allowResources.length; i++) {
-			if (resource.contains(allowResources[i])) {
+			if (resource.equals(allowResources[i])) {
 				isPermissionGrant = true;
 			}
 		}
 
 		if (!isPermissionGrant) {
-			response.sendRedirect("page_not_found.jsp");
+			RequestDispatcher dd=request.getRequestDispatcher("page_not_found.jsp");
+			dd.forward(request, response);
 		}
 	}
 %>

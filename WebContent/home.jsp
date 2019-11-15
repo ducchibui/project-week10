@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Claim List</title>
+<title>Home</title>
 <%@ include file="layout/header.jsp"%>
 <%@ include file="common/datasource.jsp"%>
 </head>
@@ -21,11 +21,11 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<h2>
-							Manage <b>Claims</b>
+							Waiting approval <b>Claims</b>
 						</h2>
 					</div>
 					<div class="col-sm-6">
-						<form class="" action="user_claim_list.jsp">
+						<form class="" action="home.jsp">
 							<input type="text" class="title-search btn form-control"
 								placeholder="Search" name="search_tearm" value="${param.search_tearm }">
 						</form>
@@ -39,6 +39,7 @@
 						protectionclaims as c
 						WHERE pr.id = c.RegistrationId
 						AND pr.ProductId = p.id
+						AND c.status = 'WAITING APPROVAL'
 						AND (
 							c.status LIKE concat('%',?,'%')
 							OR c.Type LIKE concat('%',?,'%')
@@ -65,7 +66,8 @@
 						select c.id, c.status,c.Type, c.Date,c.Description, pr.username, p.name,p.model,  pr.PurchaseDate, pr.SerialNo   from Products p,  protectionregistrations pr,
 						protectionclaims as c
 						WHERE pr.id = c.RegistrationId
-						AND pr.ProductId = p.id;
+						AND pr.ProductId = p.id
+						AND c.status = 'WAITING APPROVAL';
 					</sql:query>
 				</c:otherwise>
 			</c:choose>
@@ -102,8 +104,8 @@
 							
 							<td>
 								<c:if test="${col.status == 'WAITING APPROVAL' }">
-									<a href="#" onclick="approveSetup(${col.id})" data-toggle="modal" data-target="#approveEmployeeModal"><i
-									class="material-icons" data-toggle="tooltip"  title="Approve?">&#xE872;</i></a>
+									<a href="#" onclick="approveSetup(${col.id})" data-toggle="modal" data-target="#approveModal"><i
+									class="material-icons" data-toggle="tooltip"  title="Approve this claim">&#xE872;</i></a>
 								</c:if>
 								
 							</td>
@@ -156,11 +158,12 @@
 	</c:if>
 	
 	<!-- Delete Modal HTML -->
-	<div id="approveEmployeeModal" class="modal fade">
+	<div id="approveModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form action="approve_claim.jsp" method="POST">
 					<input id="claim_id" name="claim_id"type="hidden" value=""/>
+					<input name="is_home"type="hidden" value="true"/>
 					<div class="modal-header">
 						<h4 class="modal-title">Approve claim</h4>
 						<button type="button" class="close" data-dismiss="modal"

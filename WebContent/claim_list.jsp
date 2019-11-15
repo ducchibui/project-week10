@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Product List</title>
+<title>Claim List</title>
 <%@ include file="layout/header.jsp"%>
 <%@ include file="common/datasource.jsp"%>
 </head>
