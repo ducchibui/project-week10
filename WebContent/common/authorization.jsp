@@ -5,7 +5,7 @@
 	Map<String, String[]> resourcePermission = new HashMap<String, String[]>();
 
 	//Define the list of resource that user who has admin role can access
-	resourcePermission.put("admin", new String[] { "product_list", "add_product", "delete_product", "user_list" });
+	resourcePermission.put("admin", new String[] { "product_list", "add_product", "delete_product", "user_list","user_claim_list","approve_claim","registered_product_list" });
 
 	//Define the list of resource that user who has user role can access
 	resourcePermission.put("user", new String[] { "protection_registration", "protection_list",
