@@ -6,4 +6,4 @@
 	driver="com.mysql.jdbc.Driver"
 	url="jdbc:mysql://localhost:3306/product_management?serverTimezone=EST5EDT"
 	user="root" 
-	password="root"/>
+	password="12345"/>
