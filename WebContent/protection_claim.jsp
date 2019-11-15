@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="common/authorization.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="common/datasource.jsp"%>
 
@@ -37,7 +38,10 @@
 			AND p.ManufacturerID = m.id
 			AND p.TypeID = t.id
 			AND pr.id = ?
+			AND pr.username = ?
 		<sql:param value="${param.registrationId}" />
+		<sql:param value="${sessionScope.username}" />
+		
 	</sql:query>
 	
 	<!-- TODO: Verify expired date -->
