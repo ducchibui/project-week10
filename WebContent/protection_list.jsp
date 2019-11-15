@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="common/authorization.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
@@ -43,6 +44,7 @@
 						WHERE pr.productId = p.id
 						 AND p.ManufacturerID = m.id
 						AND p.TypeID = t.id
+						AND username=?
 						AND (
 							p.name LIKE concat('%',?,'%')
 							OR pr.purchaseDate LIKE concat('%',?,'%')
@@ -50,6 +52,7 @@
 							OR p.model LIKE concat('%',?,'%')
 							OR m.name LIKE concat('%',?,'%')
 							OR t.name LIKE concat('%',?,'%'));
+						<sql:param value="${sessionScope.username}" />	
 						<sql:param value="${param.search_tearm}" />
 						<sql:param value="${param.search_tearm}" />
 						<sql:param value="${param.search_tearm}" />
@@ -65,6 +68,8 @@
 						WHERE pr.productId = p.id
 						 AND p.ManufacturerID = m.id
 						AND p.TypeID = t.id
+						AND username=?
+						<sql:param value="${sessionScope.username}" />	
 					</sql:query>
 				</c:otherwise>
 			</c:choose>
