@@ -11,12 +11,14 @@
 <%@ include file="layout/header.jsp"%>
 </head>
 <body>
+	<!-- Input validate section -->
 	<c:set var="errName" value="" />
 	<c:set var="errTypeID" value="" />
 	<c:set var="errModel" value="" />
 	<c:set var="errManufacturerid" value="" />
 	<c:set var="data" value="${param }" />
 	<c:if test="${pageContext.request.method=='POST'}">
+		<!-- Only process validate if it is a post request -->
 		<c:choose>
 			<c:when test="${empty param.name }">
 				<c:set var="errName" value="Product Name is required" />

@@ -47,7 +47,7 @@
 								<c:redirect url="protection_list.jsp"/>
 							</c:when>
 							<c:otherwise>
-								<c:redirect url="product_list.jsp"/>
+								<c:redirect url="home.jsp"/>
 							</c:otherwise>
 						</c:choose>
 					</c:otherwise>

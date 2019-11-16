@@ -46,20 +46,34 @@
 			<c:when test="${empty param.address }">
 				<c:set var="errAddress" value="Address is required" />
 			</c:when>
-			
 			<c:otherwise>
-				<sql:update dataSource="${dbCon}" var="result">
+				<sql:query dataSource="${dbCon}" var="result">
+						SELECT username 
+						FROM users
+						WHERE username=?
+						<sql:param value="${param.username}" />
+				</sql:query>
+				<c:choose>
+					<c:when test="${result.rowCount > 0 }">
+						<c:set var="errUserName" value="This username is not available" />
+					</c:when>
+					<c:otherwise>
+
+
+						<sql:update dataSource="${dbCon}" var="result">
 		            		INSERT INTO users(name, username, password, phone, email, address, role) VALUES (?,?, ?, ?, ?, ?, 'user');
 				            <sql:param value="${param.name}" />
-				            <sql:param value="${param.username}" />
-				            <sql:param value="${param.password}" />
-				            <sql:param value="${param.phone}" />
-				            <sql:param value="${param.email}"/>
-				            <sql:param value="${param.address}" />
-				</sql:update>
-				<c:if test="${result>=1}">
-					<c:set var="msg" value="Register account successful" />
-				</c:if>
+							<sql:param value="${param.username}" />
+							<sql:param value="${param.password}" />
+							<sql:param value="${param.phone}" />
+							<sql:param value="${param.email}" />
+							<sql:param value="${param.address}" />
+						</sql:update>
+						<c:if test="${result>=1}">
+							<c:set var="msg" value="Register account successful" />
+						</c:if>
+					</c:otherwise>
+				</c:choose>
 			</c:otherwise>
 		</c:choose>
 	</c:if>
@@ -83,14 +97,16 @@
 									<fieldset>
 										<div class="form-group">
 											<label>Name</label> <input class="form-control"
-												placeholder="Name" name="name" type="text" value="${param.name}" required>
+												placeholder="Name" name="name" type="text"
+												value="${param.name}" required>
 											<c:if test="${!empty errName}">
 												<small class="text-danger">${errName}</small>
 											</c:if>
 										</div>
 										<div class="form-group">
 											<label>User Name</label> <input class="form-control"
-												placeholder="User Name" name="username" type="text" value="${param.username}" required>
+												placeholder="User Name" name="username" type="text"
+												value="${param.username}" required>
 											<c:if test="${!empty errUserName}">
 												<small class="text-danger">${errUserName}</small>
 											</c:if>
@@ -105,21 +121,24 @@
 										</div>
 										<div class="form-group">
 											<label>Phone</label> <input class="form-control"
-												placeholder="000-000-0000" name="phone" type="text" value="${param.phone}" required>
+												placeholder="000-000-0000" name="phone" type="text"
+												value="${param.phone}" required>
 											<c:if test="${!empty errPhone}">
 												<small class="text-danger">${errPhone}</small>
 											</c:if>
 										</div>
 										<div class="form-group">
 											<label>Email</label> <input class="form-control"
-												placeholder="abc@email.com" name="email" type="text" value="${param.email}" required>
+												placeholder="abc@email.com" name="email" type="text"
+												value="${param.email}" required>
 											<c:if test="${!empty errEmail}">
 												<small class="text-danger">${errEmail}</small>
 											</c:if>
 										</div>
 										<div class="form-group">
 											<label>Address</label> <input class="form-control"
-												placeholder="Address" name="address" type="text" value="${param.address}" required>
+												placeholder="Address" name="address" type="text"
+												value="${param.address}" required>
 											<c:if test="${!empty errAddress}">
 												<small class="text-danger">${errAddress}</small>
 											</c:if>

@@ -1,5 +1,6 @@
 <%@ page language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<!-- Define the common data source which will be used to connect to databse -->
 <sql:setDataSource 
 	var="dbCon" 
 	driver="com.mysql.jdbc.Driver"

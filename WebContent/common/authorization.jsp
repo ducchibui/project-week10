@@ -18,21 +18,28 @@
 	if (username == null || username.isEmpty()) {
 		response.sendRedirect("login.jsp");
 	} else {
+		
 
 		//Following code checks whether the login user has permission on current page.
-		//If user does not have the permission on current page the redirect user to default home page
+		//If user does not have the permission on current page the redirect user to page not found screen
+		
+		//Get the granted resource for the role which current user belong to
 		String[] allowResources = resourcePermission.get(role);
 
+		//Get the current request url
 		String url = request.getRequestURL().toString();
 		String resource = url.substring(url.lastIndexOf("/") + 1, url.indexOf(".jsp"));
 		Boolean isPermissionGrant = false;
 
+		//Check whether the current url is a granted resource
 		for (int i = 0; i < allowResources.length; i++) {
 			if (resource.equals(allowResources[i])) {
 				isPermissionGrant = true;
 			}
 		}
 
+		//If current url is not a grated resource, the user does not have permission to access this url.
+		//Redirect user to page not found screen
 		if (!isPermissionGrant) {
 			RequestDispatcher dd=request.getRequestDispatcher("page_not_found.jsp");
 			dd.forward(request, response);

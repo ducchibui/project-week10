@@ -105,7 +105,7 @@
 							<td>
 								<c:if test="${col.status == 'WAITING APPROVAL' }">
 									<a href="#" onclick="approveSetup(${col.id})" data-toggle="modal" data-target="#approveModal"><i
-									class="material-icons" data-toggle="tooltip"  title="Approve this claim">&#xE872;</i></a>
+									class="material-icons" data-toggle="tooltip"  title="Approve this claim">&#xe877;</i></a>
 								</c:if>
 								
 							</td>
